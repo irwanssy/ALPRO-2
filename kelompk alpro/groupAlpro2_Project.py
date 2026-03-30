@@ -6,7 +6,7 @@ menu = {
     "Es Kopi Mocha":20000
 }
 
-print("=" * 7, "Cirebon Coffe", "=" * 7)
+print("=" * 7, "UIN Coffe", "=" * 7)
 def menuTampil():
     for i in menu:
         print(f"Menu :", i, "Harga :", menu[i])
@@ -23,12 +23,12 @@ def pembelian():
             total += menu[menu_pilihan]
         else:
             print("Menu tidak tersedia")    
-
     if jumlah_menu > 3:
         diskon = total * 0.1
         total = total - diskon
     print(f"Total harga: {total}")
 menuTampil()
 pembelian()
+
 
     
