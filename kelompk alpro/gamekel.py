@@ -2,7 +2,11 @@ import random
 namaPlayernya = input("Masukkan nama player: ")
 player = {
     "nama": namaPlayernya,
-    "darah": 100,
+    "level": 1,
+    "xp": 0,
+    "xp_next_level": 100, 
+    "max_hp": 100,
+    "darah": 100000,
     "energy": 50,
     "coin": 100,
     "inventory": []
@@ -10,6 +14,7 @@ player = {
 
 def player_status():
     print(f"Nama        : {player['nama']}")
+    print(f"Level       : {player['level']}")
     print(f"Darah       : {player['darah']}")
     print(f"Energy      : {player['energy']}")
     print(f"Coin        : {player['coin']}")
@@ -37,10 +42,16 @@ def bertarung():
             print(f"Kamu menyerang {enemy['name']} dan memberikan {damage} damage!")
             
             if enemy['hp'] <= 0:
+                perolehan_xp = random.randint(30, 60)
+                tambah_xp(perolehan_xp)
+                perolehan_koin = random.randint(10, 30)
+                player['coin'] += perolehan_koin
+                print(f"Kamu mendapatkan {perolehan_koin} koin!")
                 print(f"Kamu mengalahkan {enemy['name']}!")
                 loot = random.choice(["Potion", "Pedang", "Perisai"])
                 player['inventory'].append(loot)
                 print(f"Kamu mendapatkan item: {loot}")
+                
                 break
             
             player['darah'] -= enemy['attack']
@@ -78,14 +89,59 @@ def beli_item():
     else:
         print("item tidak tersedia!")
     
+def check_level_up():
+    if player['xp'] >= player['xp_next_level']:
+        player['level'] += 1
+        player['xp'] -= player['xp_next_level'] # Sisa XP dibawa ke level berikutnya
+        
+        # Tingkatkan status setiap naik level
+        player['max_hp'] += 20 
+        player['darah'] = player['max_hp'] # Darah penuh kembali saat level up
+        player['energy'] += 10
+        
+        # Tingkatkan kesulitan level berikutnya (misal naik 50%)
+        player['xp_next_level'] = int(player['xp_next_level'] * 1.5)
+        
+        print(f"\n✨ TINGKATKAN LEVEL! ✨")
+        print(f"Selamat {player['nama']}, kamu sekarang Level {player['level']}!")
+        print(f"Darah Maksimal bertambah menjadi {player['max_hp']} dan HP pulih sepenuhnya!")
+
+def tambah_xp(jumlah):
+    print(f"✨ Kamu mendapatkan {jumlah} XP!")
+    player['xp'] += jumlah
+    check_level_up()
+
+def tampilkan_xp_detail():
+    print("\n" + "="*30)
+    print(f"Status Player : {player['nama'].upper()} ")
+    print("="*30)
+    print(f"Level      : {player['level']}")
+    
+    # Membuat visualisasi progress bar sederhana [######----]
+    lebar_bar = 20
+    progres = int((player['xp'] / player['xp_next_level']) * lebar_bar)
+    bar = "█" * progres + "-" * (lebar_bar - progres)
+    
+    print(f"XP         : [{bar}] {player['xp']}/{player['xp_next_level']}")
+    print(f"Max Darah  : {player['darah']}/{player['max_hp']}")
+    print(f"Koin       : {player['coin']}")
+    print(f"Inventory  : {', '.join(player['inventory']) if player['inventory'] else 'Kosong'}")
+    print("="*30)
+    
+    input("\nTekan Enter untuk kembali ke menu utama...")
+
 while True:
     player_status()
     print("Pilih aksi:")
-    print("1. Lawan enemy | 2. Beli Item | ")
+    print("1. Lawan enemy | 2. Beli Item | 3.Cek XP & Status ")
     try:
         pilihan = int(input("Masukkan nomor aksi (1-4): 0 untuk keluar: "))
         if pilihan == 1:
             bertarung()
+        if pilihan == 2:
+            beli_item()
+        if pilihan == 3:
+            tampilkan_xp_detail()
         if pilihan == 0:
             print("Keluar!")
             break
