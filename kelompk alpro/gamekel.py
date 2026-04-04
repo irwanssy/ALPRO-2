@@ -61,8 +61,9 @@ def bertarung():
     if player['darah'] <= 0:
         print("Darahmu habis. Game Over!")
         exit()
+
 def beli_item():
-    print("\nToko Item:")
+    print("\n=" * 5,"Selamat Datang di Toko Item:", "=" * 5)
     items = {"Potion": 20, "Pedang": 50, "Perisai": 40}
     for item, price in items.items():
         print(f"{item}: {price} coin")
@@ -86,7 +87,9 @@ while True:
         pilihan = int(input("Masukkan nomor aksi (1-4): 0 untuk keluar: "))
         if pilihan == 1:
             bertarung()
-        if pilihan == 0:
+        elif pilihan == 2:
+            beli_item()
+        elif pilihan == 0:
             print("Keluar!")
             break
     except ValueError:
