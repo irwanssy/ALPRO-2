@@ -1,12 +1,15 @@
 import random
-namaPlayernya = input("Masukkan nama player: ")
+
+print("\nHallo Traveler, Selmat datang di Game RPG sederhana ini!")
+namaPlayernya = input("Masukkan nama player: ").title()
+print("_" * 50)
 player = {
     "nama": namaPlayernya,
     "level": 1,
     "xp": 0,
     "xp_next_level": 100, 
     "max_hp": 100,
-    "darah": 100000,
+    "darah": 100,
     "energy": 50,
     "coin": 100,
     "inventory": []
@@ -35,7 +38,7 @@ def bertarung():
 
     while enemy['hp'] > 0 and player['darah'] > 0:
         print(f"\nDarahmu: {player['darah']}, Energy: {player['energy']}")
-        action = input("Pilih aksi: (1) Serang (2) Lari: ")
+        action = input("Pilih aksi: (1) Serang (2) Lari (3) Gunakan Item: ")
 
         if action == "1":
             damage = random.randint(10, 25)
@@ -67,6 +70,33 @@ def bertarung():
                 print(f"Gagal kabur! {enemy['name']} menyerang kamu.")
                 player['darah'] -= enemy['attack']
         
+        elif action == "3":
+            if not player['inventory']:
+                print("Inventori kosong!")
+                continue
+            
+            print("Inventori:")
+            for idx, item in enumerate(player['inventory'], 1):
+                print(f"{idx}. {item}")
+            
+            try:
+                itemChoice = int(input("Pilih item yang ingin digunakan: "))
+                if 1 <= itemChoice <= len(player['inventory']):
+                    selected_item = player['inventory'][itemChoice - 1]
+                    if selected_item == "Potion":
+                        player['darah'] += 20
+                        if player['darah'] > player['max_hp']:
+                            player['darah'] = player['max_hp']
+                        print("Kamu menggunakan Potion! Darah bertambah 20.")
+                    elif selected_item == "Pedang":
+                        print("Kamu menggunakan Pedang! Seranganmu meningkat untuk serangan berikutnya.")
+                    elif selected_item == "Perisai":
+                        print("Kamu menggunakan Perisai! Pertahananmu meningkat untuk serangan berikutnya.")
+                    player['inventory'].remove(selected_item)
+                else:
+                    print("Pilihan item tidak valid.")
+            except ValueError:
+                print("Input tidak valid. Masukkan nomor.")
         else:
             print("Aksi tidak valid.")
     
@@ -135,10 +165,11 @@ def tampilkan_xp_detail():
 
 while True:
     player_status()
+    print("-" * 50)
     print("Pilih aksi:")
-    print("1. Lawan enemy | 2. Beli Item | 3.Cek XP & Status ")
+    print("1. Lawan enemy | 2. Beli Item | 3. Cek XP & Status ")
     try:
-        pilihan = int(input("Masukkan nomor aksi (1-4): 0 untuk keluar: "))
+        pilihan = int(input("Masukkan nomor aksi (1-3): 0 untuk keluar: "))
         if pilihan == 1:
             bertarung()
         if pilihan == 2:
@@ -146,7 +177,7 @@ while True:
         if pilihan == 3:
             tampilkan_xp_detail()
         if pilihan == 0:
-            print("Keluar!")
+            print("Anda Keluar!!!")
             break
     except ValueError:
         print("Input tidak valid. Masukkan nomor.")
