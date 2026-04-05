@@ -8,9 +8,8 @@ player = {
     "level": 1,
     "xp": 0,
     "xp_next_level": 100, 
-    "max_hp": 100,
+    "max_hp": 1000,
     "darah": 100,
-    "energy": 50,
     "coin": 100,
     "inventory": []
 }
@@ -20,7 +19,6 @@ def player_status():
     print(f"Nama        : {player['nama']}")
     print(f"Level       : {player['level']}")
     print(f"Darah       : {player['darah']}")
-    print(f"Energy      : {player['energy']}")
     print(f"Coin        : {player['coin']}")
     print(f"Inventory   : {player['inventory']}")
 
@@ -34,10 +32,11 @@ def generate_enemy():
 #aksi
 def bertarung():
     enemy = generate_enemy()
-    print(f"\n⚔️  Kamu menghadapi {enemy['name']}! HP musuh: {enemy['hp']}, Serangan: {enemy['attack']}")
+    print("\n"+"!" * 20 + " ATTACK " + "!" * 20)
+    print(f"  Kamu menghadapi {enemy['name']}! HP musuh: {enemy['hp']}, Serangan: {enemy['attack']}")
 
     while enemy['hp'] > 0 and player['darah'] > 0:
-        print(f"\nDarahmu: {player['darah']}, Energy: {player['energy']}")
+        print(f"\nDarahmu: {player['darah']}, XP-mu: {player['xp']}")
         action = input("Pilih aksi: (1) Serang (2) Lari (3) Gunakan Item: ")
 
         if action == "1":
@@ -105,7 +104,7 @@ def bertarung():
         exit()
 
 def beli_item():
-    print("=" * 5,"Selamat Datang di Toko Item:", "=" * 5)
+    print("\n" + "=" * 5,"Selamat Datang di Toko Item:", "=" * 5)
     items = {"Potion": 20, "Pedang": 50, "Perisai": 40}
     for item, price in items.items():
         print(f"{item}: {price} coin")
@@ -177,7 +176,7 @@ while True:
         if pilihan == 3:
             tampilkan_xp_detail()
         if pilihan == 0:
-            print("Anda Keluar!!!")
+            print("Anda Keluar !!!")
             break
     except ValueError:
         print("Input tidak valid. Masukkan nomor.")
