@@ -53,21 +53,20 @@ def nomor9():
     print("list2: ", list2)
 
 def nomor10():
-    var1 = 1
-    var2 = 2
-    var2 = var1
-    var1 = var2
-    print("var1: ", var1)
-    print("var2: ", var2)
+    myList = [10,1,8,3,5]
+    total1 = 0
+    for i in range(len(myList)):
+        total1 += myList[i]  
+    print("total: ", total1)
 
 def nomor11():
-    var1 = 1
-    var2 = 2
-    auxi = var1
-    var1 = var2
-    var2 = auxi
-    print("var1: ", var1)
-    print("var2: ", var2)
+    mylist2 = [10,1,8,3,5]
+    total2 = 0
+    for i in mylist2:
+        total2 += i
+    print("total: ", total2)
+nomor10()
+nomor11()
 
 def nomor12():
     my_list = [10,1,8,3,5]
@@ -93,5 +92,3 @@ def nomor13():
     print(f"setelah dihapus: {exo}")
     exo.insert(-2, "Xiumin")
     print(f"setelah ditambahkan: {exo}")
-nomor13()
-print(exo)

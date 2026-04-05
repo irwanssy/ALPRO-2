@@ -9,6 +9,7 @@ player = {
 }
 
 def player_status():
+    print("\n" + "=" * 8, f"Status {player['nama']}", "=" * 8)
     print(f"Nama        : {player['nama']}")
     print(f"Darah       : {player['darah']}")
     print(f"Energy      : {player['energy']}")
@@ -63,12 +64,13 @@ def bertarung():
         exit()
 
 def beli_item():
-    print("\n=" * 5,"Selamat Datang di Toko Item:", "=" * 5)
+    print("=" * 5,"Selamat Datang di Toko Item:", "=" * 5)
     items = {"Potion": 20, "Pedang": 50, "Perisai": 40}
     for item, price in items.items():
         print(f"{item}: {price} coin")
     
-    choice = input("Pilih item yang ingin dibeli: ")
+    
+    choice = input("Pilih item yang ingin dibeli: ").title()
     if choice in items:
         if player['coin'] >= items[choice]:
             player['coin'] -= items[choice]
