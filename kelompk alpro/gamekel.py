@@ -72,8 +72,9 @@ def bertarung():
     if player['darah'] <= 0:
         print("Darahmu habis. Game Over!")
         exit()
+
 def beli_item():
-    print("\nToko Item:")
+    print("\n=" * 5,"Selamat Datang di Toko Item:", "=" * 5)
     items = {"Potion": 20, "Pedang": 50, "Perisai": 40}
     for item, price in items.items():
         print(f"{item}: {price} coin")
