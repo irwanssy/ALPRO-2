@@ -7,6 +7,7 @@ inventory = {}
 # INVENTORY SYSTEM
 # ======================
 def tambah_item(nama_item, jumlah):
+    
     if nama_item in inventory:
         inventory[nama_item] += jumlah
     else:

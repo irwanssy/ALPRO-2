@@ -1,8 +1,5 @@
-# ================= IMPORT =================
 import random
 
-
-# ================= INTRO =================
 print("\nHallo Traveler, Selamat datang di Game RPG sederhana ini!")
 namaPlayernya = input("Masukkan nama player: ").title()
 print("_" * 50)
@@ -43,7 +40,7 @@ def generate_enemy():
     return {"name": enemy, "hp": hp, "attack": attack}
 
 
-# ================= LEVEL SYSTEM =================
+# abdus
 def check_level_up():
     if player['xp'] >= player['xp_next_level']:
         player['level'] += 1
@@ -57,13 +54,13 @@ def check_level_up():
         
         print(f"\n✨ LEVEL UP! Sekarang Level {player['level']}!")
 
+# abdus
 def tambah_xp(jumlah):
     print(f"✨ Kamu mendapatkan {jumlah} XP!")
     player['xp'] += jumlah
     check_level_up()
 
-
-# ================= TAMPILKAN XP =================
+# abdus
 def tampilkan_xp_detail():
     print("\n" + "="*30)
     print(f"Status Player : {player['nama'].upper()} ")
@@ -84,7 +81,7 @@ def tampilkan_xp_detail():
     input("\nTekan Enter untuk kembali...")
 
 
-# ================= SHOP SYSTEM =================
+# irwan
 def beli_item():
     print("\n" + "=" * 5,"Selamat Datang di Toko Item:", "=" * 5)
     items = {"Potion": 20, "Pedang": 50, "Perisai": 40}
@@ -105,7 +102,7 @@ def beli_item():
         print("Item tidak tersedia!")
 
 
-# ================= BATTLE SYSTEM =================
+#a abdilah
 def bertarung():
     enemy = generate_enemy()
     print("\n"+"!" * 20 + " BATTLE " + "!" * 20)
@@ -117,7 +114,6 @@ def bertarung():
 
         action = input("Aksi: (1) Attack (2) Item (3) Defend (4) Lari: ")
 
-        # ===== ATTACK =====
         if action == "1":
             if player["energy"] < 10:
                 print("⚡ Energy tidak cukup!")
@@ -159,7 +155,6 @@ def bertarung():
                 print("Input salah!")
                 continue
 
-        # ===== DEFEND =====
         elif action == "3":
             regen = random.randint(5, 15)
             player["energy"] = min(player["energy"] + regen, player["max_energy"])
@@ -175,7 +170,6 @@ def bertarung():
             print(f"Kamu kena {damage} damage!")
             continue
 
-        # ===== LARI =====
         elif action == "4":
             if random.random() < 0.5:
                 print("🏃 Berhasil kabur!")
@@ -187,7 +181,6 @@ def bertarung():
             print("Pilihan salah!")
             continue
 
-        # ===== MUSUH MENYERANG =====
         if enemy['hp'] > 0:
             enemy_damage = random.randint(5, enemy['attack'])
             player['darah'] -= enemy_damage
