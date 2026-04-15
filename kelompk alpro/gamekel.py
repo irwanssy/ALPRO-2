@@ -5,7 +5,7 @@ namaPlayernya = input("Masukkan nama player: ").title()
 print("_" * 50)
 
 
-# ================= DATA PLAYER =================
+# ================= DATA PLAYER =================(irwan)
 player = {
     "nama": namaPlayernya,
     "level": 1,
@@ -20,7 +20,7 @@ player = {
 }
 
 
-# ================= STATUS PLAYER =================
+# ================= STATUS PLAYER =================(irwan)
 def player_status():
     print("\n" + "=" * 8, f"Status {player['nama']}", "=" * 8)
     print(f"Nama        : {player['nama']}")
@@ -31,7 +31,7 @@ def player_status():
     print(f"Inventory   : {player['inventory']}")
 
 
-# ================= GENERATE ENEMY =================
+# ================= GENERATE ENEMY =================(abdillah)
 def generate_enemy():
     enemies = ["Goblin", "Orc", "Slime"]
     enemy = random.choice(enemies)
@@ -128,7 +128,7 @@ def bertarung():
                 enemy['hp'] -= damage
                 print(f"⚔️ Kamu memberikan {damage} damage!")
 
-        # ===== ITEM =====
+        # ===== ITEM ===== (kaysan)
         elif action == "2":
             if not player['inventory']:
                 print("Inventori kosong!")
@@ -186,7 +186,7 @@ def bertarung():
             player['darah'] -= enemy_damage
             print(f"👹 Musuh menyerang {enemy_damage} damage!")
 
-        # ===== MENANG =====
+        # ===== MENANG ===== (abdus)
         if enemy['hp'] <= 0:
             print(f"\n🎉 Kamu mengalahkan {enemy['name']}!")
 
@@ -207,7 +207,7 @@ def bertarung():
         exit()
 
 
-# ================= MAIN MENU =================
+# ================= MAIN MENU =================(irwan)
 while True:
     player_status()
     print("-" * 50)
