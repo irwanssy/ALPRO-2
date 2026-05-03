@@ -170,7 +170,7 @@ def bertarung():
             print(f"Kamu kena {damage} damage!")
             continue
 
-        elif action == "4":
+        elif action == "4":#irwan
             if random.random() < 0.5:
                 print("🏃 Berhasil kabur!")
                 break
