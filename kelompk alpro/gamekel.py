@@ -124,14 +124,12 @@ def beli_item():
 def check_level_up():
     if player['xp'] >= player['xp_next_level']:
         player['level'] += 1
-        player['xp'] -= player['xp_next_level'] # Sisa XP dibawa ke level berikutnya
+        player['xp'] -= player['xp_next_level'] 
         
-        # Tingkatkan status setiap naik level
         player['max_hp'] += 20 
-        player['darah'] = player['max_hp'] # Darah penuh kembali saat level up
+        player['darah'] = player['max_hp'] 
         player['energy'] += 10
         
-        # Tingkatkan kesulitan level berikutnya (misal naik 50%)
         player['xp_next_level'] = int(player['xp_next_level'] * 1.5)
         
         print(f"\n✨ TINGKATKAN LEVEL! ✨")
@@ -149,7 +147,6 @@ def tampilkan_xp_detail():
     print("="*30)
     print(f"Level      : {player['level']}")
     
-    # Membuat visualisasi progress bar sederhana [######----]
     lebar_bar = 20
     progres = int((player['xp'] / player['xp_next_level']) * lebar_bar)
     bar = "█" * progres + "-" * (lebar_bar - progres)
@@ -166,7 +163,7 @@ while True:
     player_status()
     print("-" * 50)
     print("Pilih aksi:")
-    print("1. Lawan enemy | 2. Beli Item | 3. Cek XP & Status ")
+    print("1. Lawan enemy | 2. Beli Item | 3. Cek XP & Status | 0. Keluar")
     try:
         pilihan = int(input("Masukkan nomor aksi (1-3): 0 untuk keluar: "))
         if pilihan == 1:
