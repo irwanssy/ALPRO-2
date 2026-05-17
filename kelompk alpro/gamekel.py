@@ -5,22 +5,22 @@ namaPlayernya = input("Masukkan nama player: ").title()
 print("_" * 50)
 
 
-# ================= DATA PLAYER =================
+# ================= DATA PLAYER =================(irwan)
 player = {
     "nama": namaPlayernya,
     "level": 1,
     "xp": 0,
     "xp_next_level": 100, 
-    "max_hp": 1000,
+    "max_hp": 100,
     "darah": 100,
     "coin": 100,
     "inventory": [],
-    "energy": 50,
-    "max_energy": 50
+    "energy": 100,
+    "max_energy": 200
 }
 
 
-# ================= STATUS PLAYER =================
+# ================= STATUS PLAYER =================(irwan)
 def player_status():
     print("\n" + "=" * 8, f"Status {player['nama']}", "=" * 8)
     print(f"Nama        : {player['nama']}")
@@ -31,7 +31,7 @@ def player_status():
     print(f"Inventory   : {player['inventory']}")
 
 
-# ================= GENERATE ENEMY =================
+# ================= GENERATE ENEMY =================(abdillah)
 def generate_enemy():
     enemies = ["Goblin", "Orc", "Slime"]
     enemy = random.choice(enemies)
@@ -81,26 +81,46 @@ def tampilkan_xp_detail():
     input("\nTekan Enter untuk kembali...")
 
 
-# irwan
+# Kaysan
 def beli_item():
     print("\n" + "=" * 5,"Selamat Datang di Toko Item:", "=" * 5)
-    items = {"Potion": 20, "Pedang": 50, "Perisai": 40}
+    items = {
+        1: {"nama": "Mie Ayam", "harga": 20},
+        2: {"nama": "Pedang", "harga": 50},
+        3: {"nama": "Perisai", "harga": 40},
+        4: {"nama": "Es Teh", "harga": 5}
+    }
+    for no, item in items.items():
+        print(f"{no}. {item['nama']} - {item['harga']} coin")
+    pilih = int(input("Pilih item: "))
 
-    for item, price in items.items():
-        print(f"{item}: {price} coin")
-    
-    choice = input("Pilih item: ").title()
+    if pilih in items:
+        item_name = items[pilih]['nama']
+        item_cost = items[pilih]['harga']
 
-    if choice in items:
-        if player['coin'] >= items[choice]:
-            player['coin'] -= items[choice]
-            player['inventory'].append(choice)
-            print(f"Kamu membeli {choice}!")
+        if player['coin'] >= item_cost:
+            player['coin'] -= item_cost
+            player['inventory'].append(item_name)
+            print(f"Berhasil membeli {item_name}!")
         else:
             print("Coin tidak cukup!")
     else:
-        print("Item tidak tersedia!")
-
+        print("item tidak tersedia!")
+    
+def check_level_up():
+    if player['xp'] >= player['xp_next_level']:
+        player['level'] += 1
+        player['xp'] -= player['xp_next_level'] 
+        
+        player['max_hp'] += 20 
+        player['darah'] = player['max_hp'] 
+        player['energy'] += 10
+        
+        player['xp_next_level'] = int(player['xp_next_level'] * 1.5)
+        
+        print(f"\n✨ TINGKATKAN LEVEL! ✨")
+        print(f"Selamat {player['nama']}, kamu sekarang Level {player['level']}!")
+        print(f"Darah Maksimal bertambah menjadi {player['max_hp']} dan HP pulih sepenuhnya!")
 
 #a abdilah
 def bertarung():
@@ -116,7 +136,7 @@ def bertarung():
 
         if action == "1":
             if player["energy"] < 10:
-                print("⚡ Energy tidak cukup!")
+                print("Energy tidak cukup!")
                 continue
 
             player["energy"] -= 10
@@ -128,26 +148,31 @@ def bertarung():
                 enemy['hp'] -= damage
                 print(f"⚔️ Kamu memberikan {damage} damage!")
 
-        # ===== ITEM =====
+        
         elif action == "2":
             if not player['inventory']:
                 print("Inventori kosong!")
                 continue
 
-            for idx, item in enumerate(player['inventory'], 1):
-                print(f"{idx}. {item}")
+            for no, item in enumerate(player['inventory'], 1):
+                print(f"{no}. {item}")
 
             try:
                 pilih = int(input("Pilih item: "))
                 item = player['inventory'][pilih - 1]
 
-                if item == "Potion":
+                if item == "Mie Ayam":
                     player['darah'] = min(player['darah'] + 20, player['max_hp'])
-                    print("🧪 HP bertambah!")
+                    print("HP bertambah!")
                 elif item == "Pedang":
-                    print("⚔️ Attack boost sementara!")
+                    player['energy'] = min(player['energy'] + 25, player['max_energy'])
+                    print("Attack boost!")
                 elif item == "Perisai":
-                    print("🛡️ Defense boost sementara!")
+                    player['darah'] = min(player['darah'] + 100, player['max_hp'])
+                    print("Defense boost!")
+                elif item == "Es Teh":
+                    player['energy'] = min(player['energy'] + 10, player['max_energy'])
+                    print("⚡ Energy bertambah!")
 
                 player['inventory'].remove(item)
 
@@ -160,7 +185,7 @@ def bertarung():
             player["energy"] = min(player["energy"] + regen, player["max_energy"])
 
             if random.randint(1, 100) <= 20:
-                print("❌ Gagal defend!")
+                print("Gagal defend!")
                 damage = enemy["attack"]
             else:
                 print(f"🛡️ Berhasil defend +{regen} energy!")
@@ -186,7 +211,7 @@ def bertarung():
             player['darah'] -= enemy_damage
             print(f"👹 Musuh menyerang {enemy_damage} damage!")
 
-        # ===== MENANG =====
+        # ===== MENANG ===== (abdus)
         if enemy['hp'] <= 0:
             print(f"\n🎉 Kamu mengalahkan {enemy['name']}!")
 
@@ -203,18 +228,16 @@ def bertarung():
             break
 
     if player['darah'] <= 0:
-        print("💀 Kamu mati! Game Over.")
+        print("XXX Kamu mati! Game Over. XXX")
         exit()
 
 
-# ================= MAIN MENU =================
+# ================= MAIN MENU =================(irwan)
 while True:
     player_status()
     print("-" * 50)
-    print("1. Lawan Enemy")
-    print("2. Beli Item")
-    print("3. Cek Status & XP")
-    print("0. Keluar")
+    print("Pilih aksi:")
+    print("1. Lawan enemy | 2. Beli Item | 3. Cek XP & Status | 0. Keluar")
 
     try:
         pilihan = int(input("Pilih: "))
