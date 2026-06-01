@@ -28,7 +28,7 @@ def player_status():
     print(f"Energy      : {player['energy']}")
     print(f"Coin        : {player['coin']}")
     print(f"Inventory   : {player['inventory']}")
-    
+
 def generate_enemy():
     enemies = ["Goblin", "Orc", "Slime"]
     enemy = random.choice(enemies)
