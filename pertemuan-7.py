@@ -23,8 +23,8 @@ def nomor5():
     list1 = [1,2,3]
     return list1[-1]
 
-topi_list = [1,2,3,4,5]
 def nomor6():
+    topi_list = [1,2,3,4,5]
     replace = int(input("masukkan angka: "))
     topi_list[2] = replace
     del topi_list[-1]
