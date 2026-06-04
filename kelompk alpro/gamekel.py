@@ -30,11 +30,9 @@ def player_status():
     print(f"Coin        : {player['coin']}")
     print(f"Inventory   : {player['inventory']}")
 
-<<<<<<< HEAD
 
-# ================= GENERATE ENEMY =================(abdillah)
-=======
->>>>>>> 2c89cdc3d60dcd1c1411cfae3ca822792e7e8bea
+
+# ================= GENERATE ENEMY =================(abdillah
 def generate_enemy():
     enemies = ["Goblin", "Orc", "Slime"]
     enemy = random.choice(enemies)
